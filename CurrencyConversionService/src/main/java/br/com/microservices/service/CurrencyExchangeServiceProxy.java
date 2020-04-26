@@ -10,11 +10,16 @@ import br.com.microservices.bean.CurrencyConversionBean;
 //A indicação da URL sai deste ponto e vai para uma variável no application.properties
 //@FeignClient(name="currency-exchange-service", url="localhost:8000")
 
-@FeignClient(name="currency-exchange-service")
+//Alteração da chamada do feign para que a requisição passe pelo zuul api gateway
+//@FeignClient(name="currency-exchange-service")
+@FeignClient(name="zuul-api-gateway-server")
 @RibbonClient(name="currency-exchange-service")
 public interface CurrencyExchangeServiceProxy {
-
-	@GetMapping("/currency-exchange/from/{from}/to/{to}")
+	
+	//Alteração da chamada do feign para que a requisição passe pelo zuul api gateway
+	//@GetMapping("/currency-exchange/from/{from}/to/{to}")
+	
+	@GetMapping("/currency-exchange-service/currency-exchange/from/{from}/to/{to}")
 	public CurrencyConversionBean retrieveExchangeValue(
 			@PathVariable String from, @PathVariable String to); 
 }
